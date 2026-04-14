@@ -13,7 +13,7 @@ import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;

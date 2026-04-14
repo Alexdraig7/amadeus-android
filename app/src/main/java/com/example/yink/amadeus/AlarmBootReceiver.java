@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 public class AlarmBootReceiver extends WakefulBroadcastReceiver {
 
-    final String TAG = "AlarmBootReceiver";
+    private static final String TAG = "AlarmBootReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,18 +22,45 @@ public class AlarmBootReceiver extends WakefulBroadcastReceiver {
 
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())
                 && settings.getBoolean("alarm_toggle", false)) {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(
-                    Context.ALARM_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    Alarm.ALARM_ID, new Intent(context, AlarmReceiver.class), 0);
 
+            AlarmManager alarmManager =
+                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+
+            PendingIntent pendingIntent;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
+                pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        Alarm.ALARM_ID,
+                        alarmIntent,
+                        PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+                );
             } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
+                pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        Alarm.ALARM_ID,
+                        alarmIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
             }
-            Log.d(TAG, "Alarm has been recovered");
-        }
 
+            if (alarmManager != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            settings.getLong("alarm_time", 0),
+                            pendingIntent
+                    );
+                } else {
+                    alarmManager.set(
+                            AlarmManager.RTC_WAKEUP,
+                            settings.getLong("alarm_time", 0),
+                            pendingIntent
+                    );
+                }
+                Log.d(TAG, "Alarm has been recovered");
+            }
+        }
     }
 }

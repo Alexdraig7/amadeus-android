@@ -1,36 +1,41 @@
 # Built application files
 /*/build/
 /build
+out/
 
-# Crashlytics configuations
-com_crashlytics_export_strings.xml
+# Gradle
+.gradle/
 
-# Local configuration file (sdk path, etc)
+# Local config
 local.properties
 
-# Gradle generated files
-.gradle/
+# APKs
+*.apk
+*.aab
+
+# Logs
+*.log
+
+# Crashlytics
+com_crashlytics_export_strings.xml
 
 # Signing files
 .signing/
+*.jks
+*.keystore
 
-# User-specific configurations
-.idea/gradle.xml
-.idea/runConfigurations.xml
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
+# Android Studio
+.idea/
 *.iml
 
-# OS-specific files
+# Native / C++
+.cxx/
+.externalNativeBuild/
+
+# Temp / captures
+captures/
+
+# OS files
 .DS_Store
 .DS_Store?
 ._*

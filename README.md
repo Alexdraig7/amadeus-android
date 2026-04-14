@@ -1,8 +1,7 @@
 # Amadeus
 A side project that aims to replicate the Amadeus App shown in Steins;Gate 0 for Android.
 
-I'm creating this mainly for cosplay purposes, thus the design takes priority over actual functionality.
-Hit me up on the <a href="https://discord.gg/fTtJ2Ws">Steins;Gate Discord</a>.
+The source code obtained from https://github.com/Yink/Amadeus has been updated. You can contact them if the link is still working on the <a href="https://discord.gg/fTtJ2Ws">Steins;Gate Discord</a>
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
 
